@@ -7,6 +7,7 @@ import org.example.validator.property.StringPropertyGetter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 public class FluentValidator<T> implements Validator<T> {
@@ -15,11 +16,17 @@ public class FluentValidator<T> implements Validator<T> {
     public ValidationResult validate(T element) {
         var errors = validators.stream()
                 .map(validator -> validator.validate(element))
-                .filter(r -> !r.isSuccess())
-                .map(ValidationResult::getDescription)
+                .map(e -> {
+                    if (e instanceof ValidationResult.Error error){
+                        return error;
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .toList();
         if (!errors.isEmpty()) {
-            return ValidationResult.error(String.join("; ", errors));
+            return ValidationResult.error(errors);
         } else {
             return ValidationResult.VALID_RESULT;
         }

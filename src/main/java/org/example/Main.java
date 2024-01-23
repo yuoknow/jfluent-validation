@@ -3,7 +3,6 @@ package org.example;
 import lombok.Getter;
 import org.example.validator.FluentValidator;
 
-import static java.lang.System.out;
 
 public class Main {
 
@@ -12,24 +11,14 @@ public class Main {
                 .property(Customer::getName).notNull().notEmpty()
                 .property(Customer::getAge).moreThan(10);
 
-        out.println(validator.validate(new Customer()));
+        System.out.println(validator.validate(new Customer()));
     }
 
+    @Getter
     public static class Customer {
         private String name;
         private int age;
-
-        @Getter
         private Bank bank;
-
-        public String getName() {
-            return name;
-        }
-
-        public Integer getAge() {
-            return age;
-        }
-
     }
 
     public static class Bank {

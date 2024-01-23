@@ -1,16 +1,23 @@
 package org.example.validator;
 
-import lombok.Builder;
-import lombok.Data;
 
-@Data
-@Builder(toBuilder = true)
-public class ValidationResult {
-    private boolean success;
-    private String description;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public static ValidationResult error(String errorText) {
-        return new ValidationResult(false, errorText);
+public sealed interface ValidationResult permits ValidationResult.Success, ValidationResult.Error {
+
+    record Success() implements ValidationResult {
     }
-    public static final ValidationResult VALID_RESULT = new ValidationResult(true, null);
+
+    static Error error(String errorText) {
+        return new Error(errorText);
+    }
+
+    static Error error(List<Error> errors) {
+        return new Error(errors.stream().map(Error::errorText).collect(Collectors.joining(";")));
+    }
+
+    record Error(String errorText) implements ValidationResult {}
+
+    ValidationResult VALID_RESULT = new Success();
 }

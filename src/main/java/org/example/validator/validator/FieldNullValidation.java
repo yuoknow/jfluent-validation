@@ -1,7 +1,7 @@
 package org.example.validator.validator;
 
 import lombok.SneakyThrows;
-import org.example.validator.ValidationResult;
+import org.example.validator.result.ValidationResult;
 import org.example.validator.Validator;
 import org.example.validator.property.RefinedPropertyGetter;
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.validator.property.IntegerPropertyGetter;
 import org.example.validator.property.ObjectPropertyGetter;
 import org.example.validator.property.StringPropertyGetter;
+import org.example.validator.result.ValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;

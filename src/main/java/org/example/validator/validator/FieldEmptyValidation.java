@@ -2,7 +2,7 @@ package org.example.validator.validator;
 
 import de.cronn.reflection.util.TypedPropertyGetter;
 import lombok.SneakyThrows;
-import org.example.validator.ValidationResult;
+import org.example.validator.result.ValidationResult;
 import org.example.validator.Validator;
 
 

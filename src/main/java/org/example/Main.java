@@ -2,6 +2,7 @@ package org.example;
 
 import lombok.Getter;
 import org.example.validator.FluentValidator;
+import org.example.validator.result.ValidationResult;
 
 
 public class Main {

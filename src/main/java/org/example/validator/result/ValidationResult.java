@@ -1,13 +1,12 @@
-package org.example.validator;
+package org.example.validator.result;
 
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public sealed interface ValidationResult permits ValidationResult.Success, ValidationResult.Error {
+public sealed interface ValidationResult permits ValidationResult.Error, ValidationResult.Success {
 
-    record Success() implements ValidationResult {
-    }
+    record Success() implements ValidationResult {}
 
     static Error error(String errorText) {
         return new Error(errorText);

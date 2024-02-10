@@ -8,7 +8,6 @@ import org.example.validator.result.ValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 public class FluentValidator<T> implements Validator<T> {
@@ -17,14 +16,8 @@ public class FluentValidator<T> implements Validator<T> {
     public ValidationResult validate(T element) {
         var errors = validators.stream()
                 .map(validator -> validator.validate(element))
-                .map(e -> {
-                    if (e instanceof ValidationResult.Error error){
-                        return error;
-                    } else {
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
+                .filter(e -> e instanceof ValidationResult.Error)
+                .map(ValidationResult.Error.class::cast)
                 .toList();
         if (!errors.isEmpty()) {
             return ValidationResult.error(errors);
@@ -42,6 +35,7 @@ public class FluentValidator<T> implements Validator<T> {
     }
 
     public FluentValidator<T> property(ObjectPropertyGetter<T> getter) {
+//        return new ObjectFluentValidator;
         return null;
     }
 }

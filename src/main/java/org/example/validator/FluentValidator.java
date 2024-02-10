@@ -34,8 +34,13 @@ public class FluentValidator<T> implements Validator<T> {
         return new IntegerFluentValidator<>(getter, getter.getMethodName(), this);
     }
 
-    public FluentValidator<T> property(ObjectPropertyGetter<T> getter) {
-//        return new ObjectFluentValidator;
-        return null;
+    public <E> FluentValidator<T> property(ObjectPropertyGetter<T, E> getter, Validator<E> validator) {
+        return new ObjectFluentValidator<>(getter, getter.getMethodName(),
+                this,
+                validator);
+    }
+
+    public static <T> FluentValidator<T> validator() {
+        return new FluentValidator<>();
     }
 }

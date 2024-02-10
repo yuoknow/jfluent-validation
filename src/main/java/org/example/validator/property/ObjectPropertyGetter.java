@@ -1,6 +1,4 @@
 package org.example.validator.property;
 
-import de.cronn.reflection.util.TypedPropertyGetter;
-
-public interface ObjectPropertyGetter<T> extends TypedPropertyGetter<T, Object> {
+public interface ObjectPropertyGetter<T, E> extends RefinedPropertyGetter<T, E> {
 }

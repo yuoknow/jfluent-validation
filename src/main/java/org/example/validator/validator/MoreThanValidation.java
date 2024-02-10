@@ -2,8 +2,8 @@ package org.example.validator.validator;
 
 import de.cronn.reflection.util.TypedPropertyGetter;
 import lombok.RequiredArgsConstructor;
-import org.example.validator.result.ValidationResult;
 import org.example.validator.Validator;
+import org.example.validator.result.ValidationResult;
 
 
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public class MoreThanValidation<T> implements Validator<T> {
     public ValidationResult validate(T element) {
         Integer result = getField.get(element);
         if (result == null || result < value) {
-            return ValidationResult.error(fieldName + " is lesser than " + value);
+            return ValidationResult.error(fieldName + " is less than " + value);
         } else {
             return ValidationResult.VALID_RESULT;
         }

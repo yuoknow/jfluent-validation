@@ -1,16 +1,15 @@
 package org.example.validator.validator;
 
 import de.cronn.reflection.util.TypedPropertyGetter;
-import lombok.SneakyThrows;
-import org.example.validator.result.ValidationResult;
 import org.example.validator.Validator;
+import org.example.validator.result.ValidationResult;
 
 
 public class FieldEmptyValidation<T> implements Validator<T> {
     private final TypedPropertyGetter<T, String> getField;
     private final String fieldName;
 
-    @SneakyThrows
+
     public FieldEmptyValidation(TypedPropertyGetter<T, String> getField, String fieldName) {
         this.getField = getField;
         this.fieldName = fieldName;

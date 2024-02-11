@@ -1,12 +1,8 @@
 package org.example.validator;
 
-import lombok.RequiredArgsConstructor;
 import org.example.validator.property.IntegerPropertyGetter;
-import org.example.validator.validator.FieldEmptyValidation;
 import org.example.validator.validator.FieldNullValidation;
 import org.example.validator.validator.MoreThanValidation;
-
-import java.util.List;
 
 
 public class IntegerFluentValidator<T> extends FluentValidator<T> {

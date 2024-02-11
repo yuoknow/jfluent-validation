@@ -1,16 +1,15 @@
 package org.example.validator.validator;
 
-import lombok.SneakyThrows;
-import org.example.validator.result.ValidationResult;
 import org.example.validator.Validator;
 import org.example.validator.property.RefinedPropertyGetter;
+import org.example.validator.result.ValidationResult;
 
 
 public class FieldNullValidation<T> implements Validator<T> {
     private final RefinedPropertyGetter<T, ? extends Object> getField;
     private final String fieldName;
 
-    @SneakyThrows
+
     public FieldNullValidation(RefinedPropertyGetter<T, ? extends Object> getField, String fieldName) {
         this.getField = getField;
         this.fieldName = fieldName;

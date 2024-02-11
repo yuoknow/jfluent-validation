@@ -25,13 +25,13 @@ class Example {
         var validator = FluentValidator.<Account>validator()
                 .property(Account::amount).moreThan(200)
                 .property(Account::customer,
-                        FluentValidator.<Customer>validator().property(Customer::name).notEmpty());
+                        customerValidator -> customerValidator.property(Customer::name).notEmpty());
 
         var validationResult = validator
                 .validate(new Account(new Customer("", 1), 100));
 
         assertThat(validationResult.getErrorText())
-                .isEqualTo("amount is less than 200; name is empty");
+                .isEqualTo("amount is less than 200; customer.name is empty");
     }
 
     public record Account(Customer customer, int amount) {

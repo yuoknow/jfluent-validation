@@ -1,6 +1,5 @@
 package org.example.validator;
 
-import lombok.RequiredArgsConstructor;
 import org.example.validator.property.IntegerPropertyGetter;
 import org.example.validator.property.ObjectPropertyGetter;
 import org.example.validator.property.StringPropertyGetter;
@@ -8,10 +7,21 @@ import org.example.validator.result.ValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.UnaryOperator;
 
-@RequiredArgsConstructor
 public class FluentValidator<T> implements Validator<T> {
+    private final String prefix;
     protected final List<Validator<T>> validators = new ArrayList<>();
+
+    public FluentValidator() {
+        this.prefix = "";
+    }
+
+    private FluentValidator(String prefix) {
+        Objects.requireNonNull(prefix, "Prefix cannot be null");
+        this.prefix = prefix;
+    }
 
     public ValidationResult validate(T element) {
         var errors = validators.stream()
@@ -27,17 +37,22 @@ public class FluentValidator<T> implements Validator<T> {
     }
 
     public StringFluentValidator<T> property(StringPropertyGetter<T> getter) {
-        return new StringFluentValidator<>(getter, getter.getMethodName(), this);
+        return new StringFluentValidator<>(getter, getFieldName(getter.getMethodName()), this);
     }
 
     public IntegerFluentValidator<T> property(IntegerPropertyGetter<T> getter) {
-        return new IntegerFluentValidator<>(getter, getter.getMethodName(), this);
+        return new IntegerFluentValidator<>(getter, getFieldName(getter.getMethodName()), this);
     }
 
-    public <E> FluentValidator<T> property(ObjectPropertyGetter<T, E> getter, Validator<E> validator) {
+    public <E> FluentValidator<T> property(ObjectPropertyGetter<T, E> getter,
+                                           UnaryOperator<FluentValidator<E>> validator) {
         return new ObjectFluentValidator<>(getter, getter.getMethodName(),
                 this,
-                validator);
+                validator.apply(new FluentValidator<>(getter.getMethodName())));
+    }
+
+    private String getFieldName(String name) {
+        return prefix.isEmpty() ? name : prefix + "." + name;
     }
 
     public static <T> FluentValidator<T> validator() {

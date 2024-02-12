@@ -2,7 +2,8 @@ package org.example.validator;
 
 import org.example.validator.property.IntegerPropertyGetter;
 import org.example.validator.validator.FieldNullValidation;
-import org.example.validator.validator.MoreThanValidation;
+import org.example.validator.validator.GreaterThanValidation;
+import org.example.validator.validator.LessThanValidation;
 
 
 public class IntegerFluentValidator<T> extends FluentValidator<T> {
@@ -20,8 +21,13 @@ public class IntegerFluentValidator<T> extends FluentValidator<T> {
         return this;
     }
 
-    public IntegerFluentValidator<T> moreThan(int num) {
-        validators.add(MoreThanValidation.moreThan(getField, fieldName, num));
+    public IntegerFluentValidator<T> greaterThan(Integer num) {
+        validators.add(GreaterThanValidation.greaterThan(getField, fieldName, num));
+        return this;
+    }
+
+    public IntegerFluentValidator<T> lessThan(Integer num) {
+        validators.add(LessThanValidation.lessThan(getField, fieldName, num));
         return this;
     }
 }

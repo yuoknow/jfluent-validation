@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Example {
+class ExampleTest {
 
 
     @Test
     void validation_example() {
         var validator = FluentValidator.<Customer>validator()
                 .property(Customer::name).notNull().notEmpty()
-                .property(Customer::age).moreThan(10);
+                .property(Customer::age).notNull().greaterThan(10);
 
         var validationResult = validator.validate(new Customer("", 1));
 
@@ -23,7 +23,7 @@ class Example {
     @Test
     void inner_object_validation_example() {
         var validator = FluentValidator.<Account>validator()
-                .property(Account::amount).moreThan(200)
+                .property(Account::amount).greaterThan(200)
                 .property(Account::customer,
                         customerValidator -> customerValidator.property(Customer::name).notEmpty());
 

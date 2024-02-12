@@ -6,6 +6,7 @@ import org.example.validator.property.StringPropertyGetter;
 import org.example.validator.result.ValidationResult;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.UnaryOperator;
@@ -57,5 +58,15 @@ public class FluentValidator<T> implements Validator<T> {
 
     public static <T> FluentValidator<T> validator() {
         return new FluentValidator<>();
+    }
+
+    public FluentValidator<T> addValidator(Validator<T> validator) {
+        validators.add(validator);
+        return this;
+    }
+
+    public FluentValidator<T> addValidators(Collection<Validator<T>> validators) {
+        validators.addAll(validators);
+        return this;
     }
 }

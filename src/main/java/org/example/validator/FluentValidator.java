@@ -66,7 +66,7 @@ public class FluentValidator<T> implements Validator<T> {
     }
 
     public FluentValidator<T> addValidators(Collection<Validator<T>> validators) {
-        validators.addAll(validators);
+        this.validators.addAll(validators);
         return this;
     }
 }

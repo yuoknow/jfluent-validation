@@ -12,7 +12,7 @@ class ExampleTest {
     void validation_example() {
         var validator = FluentValidator.<Customer>validator()
                 .property(Customer::name).notNull().notEmpty()
-                .property(Customer::age).notNull().greaterThan(10);
+                .property(Customer::age).notNull().greaterThan(18);
 
         var validationResult = validator.validate(new Customer("", 1));
 
